@@ -2,6 +2,7 @@ from database.regione_DAO import RegioneDAO
 from database.tour_DAO import TourDAO
 from database.attrazione_DAO import AttrazioneDAO
 
+
 class Model:
     def __init__(self):
         self.tour_map = {} # Mappa ID tour -> oggetti Tour
@@ -38,8 +39,13 @@ class Model:
             --> Ogni Tour ha un set di Attrazione.
             --> Ogni Attrazione ha un set di Tour.
         """
+        mappa_tour=self.tour_map
+        mappa_attrazioni=self.attrazioni_map
+        relazioni=TourDAO.get_tour_attrazioni()
+        for r in relazioni:
+            mappa_tour[r['id_tour']].attrazioni.add(mappa_attrazioni[r['id_attrazione']])
+            mappa_attrazioni[r['id_attrazione']].tour.add(mappa_tour[r['id_tour']])
 
-        # TODO
 
     def genera_pacchetto(self, id_regione: str, max_giorni: int = None, max_budget: float = None):
         """
