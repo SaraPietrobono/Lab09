@@ -25,7 +25,7 @@ class TourDAO:
                     id=row["id"],
                     nome=row["nome"],
                     durata_giorni=row["durata_giorni"],
-                    costo=row["costo"],
+                    costo=float(row["costo"]),
                     id_regione=row["id_regione"]
                 )
                 result[tour.id] = tour
